@@ -9,6 +9,7 @@ export interface CardProps {
   title: string;
   description: string;
   price: any;
+  colorIcon: boolean;
 }
 
 const StyledWrap = Styled.div`
@@ -22,9 +23,9 @@ const StyledImg = Styled.div`
     position:relative;
 `;
 
-const StyledIcon = Styled.i`
+const StyledIcon = Styled.i<any>`
     font-size:20px;
-    color:lightgrey;
+    color:${(CardProps) => (CardProps.colorIcon ? "yellow" : "lightgrey")};;
 `;
 
 const StyledWrapIcon = Styled.div`
@@ -56,7 +57,10 @@ export const Card: FC<CardProps> = (props) => {
         {" "}
         <Img src={props.src} />
         <StyledWrapIcon onClick={props.handleStart}>
-          <StyledIcon className="fas fa-star"></StyledIcon>
+          <StyledIcon
+            colorIcon={props.colorIcon}
+            className="fas fa-star"
+          ></StyledIcon>
         </StyledWrapIcon>
       </StyledImg>
       <StyledWrapText>

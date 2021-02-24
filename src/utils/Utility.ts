@@ -9,7 +9,3 @@ export const formattedPrice = (cards: any): number => {
   });
   return count;
 };
-
-export const IsInArray = (cards: any, obj: any) => {
-  return cards.includes(obj);
-};

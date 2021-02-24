@@ -3,6 +3,7 @@ import {
   ACTION_ADD_CARD,
   ACTION_ADD_WISH,
   ACTION_REMOVE_CARD,
+  ACTION_REMOVE_WISH,
 } from "../actions";
 
 export const reducerCart = (prevState: any = {}, action: any) => {
@@ -15,8 +16,12 @@ export const reducerCart = (prevState: any = {}, action: any) => {
     case ACTION_ADD_WISH:
       clonedState.likeCard = [...clonedState.likeCard, action.payload];
       break;
+    case ACTION_REMOVE_WISH:
+      clonedState.likeCard = clonedState.likeCard.filter(
+        (item: any) => item.uuid !== action.payload.uuid
+      );
+      break;
     case ACTION_REMOVE_CARD:
-      console.log(action.payload.uuid);
       clonedState.card = clonedState.card.filter(
         (item: any) => item.uuid !== action.payload.uuid
       );
