@@ -25,9 +25,6 @@ const Home: FC = () => {
   selectWish.forEach((card: any) => {
     idSelectWish = [...idSelectWish, card.uuid];
   });
-  console.log(selectWish);
-
-  console.log(idSelectWish);
 
   const url: string =
     "https://api.musement.com/api/v3/venues/164/activities?limit=6&offset=0&accept-language=it&x-musement-currency=EUR&x-musement-version=3.4.0";
@@ -81,40 +78,35 @@ const Home: FC = () => {
       <StyledWrap>
         {data &&
           data.map((card: any, index: number) => (
-            <>
-              <div key={index}>
-                <Card
-                  handleStart={
-                    idSelectWish.includes(card.uuid)
-                      ? () => removeToWish(card)
-                      : () => addToWish(card)
-                  }
-                  colorIcon={idSelectWish.includes(card.uuid)}
-                  src={card.cover_image_url}
-                  title={card.title}
-                  description={card.description}
-                  price={card.original_retail_price.formatted_value}
-                />
-                <StyledButton>
-                  {idSelectCart.includes(card.uuid) && (
-                    <Button
-                      handleClick={() => removeToCart(card)}
-                      variant="primary"
-                    >
-                      {" "}
-                      REMOVE TO CART{" "}
-                    </Button>
-                  )}
+            <div key={card.uuid}>
+              <Card
+                handleStart={
+                  idSelectWish.includes(card.uuid)
+                    ? () => removeToWish(card)
+                    : () => addToWish(card)
+                }
+                colorIcon={idSelectWish.includes(card.uuid)}
+                src={card.cover_image_url}
+                title={card.title}
+                description={card.description}
+                price={card.original_retail_price.formatted_value}
+              />
+              <StyledButton key={index}>
+                {idSelectCart.includes(card.uuid) && (
                   <Button
-                    handleClick={() => addToCart(card)}
-                    variant="secondary"
+                    handleClick={() => removeToCart(card)}
+                    variant="primary"
                   >
                     {" "}
-                    ADD TO CART{" "}
+                    REMOVE TO CART{" "}
                   </Button>
-                </StyledButton>
-              </div>
-            </>
+                )}
+                <Button handleClick={() => addToCart(card)} variant="secondary">
+                  {" "}
+                  ADD TO CART{" "}
+                </Button>
+              </StyledButton>
+            </div>
           ))}
       </StyledWrap>
     </>
