@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import "@fortawesome/fontawesome-free/js/all.js";
 import moment from "moment";
 import {
@@ -25,6 +25,18 @@ const Home: FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
   // debugger;
+
+  useEffect(() => {
+    //@ts-ignore
+    const todos: any = JSON.parse(localStorage.getItem("items"));
+    if (todos) {
+      setTodos(todos);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(todos));
+  }, [todos]);
 
   const handleSubmit = (e: FormElement): void => {
     e.preventDefault();
