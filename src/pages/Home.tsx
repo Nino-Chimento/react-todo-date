@@ -1,115 +1,148 @@
-import React, { FC, useEffect, useState } from "react";
-import axios from "axios";
-import Styled from "styled-components";
-import { Card } from "../components/Card/Card";
-import { Header } from "../components/Header/Header";
-import { Button } from "../components/Button/Button";
-import { useDispatch, useSelector } from "react-redux";
+import React, { FC, useState } from "react";
+import "@fortawesome/fontawesome-free/js/all.js";
+import moment from "moment";
 import {
-  ACTION_ADD_CARD,
-  ACTION_ADD_WISH,
-  ACTION_REMOVE_CARD,
-  ACTION_REMOVE_WISH,
-} from "../redux/actions";
-import { selectorCard, selectorLikeCard } from "../redux/selectors";
+  StyledButtonAdd,
+  StyledDeleteComplete,
+  StyledForm,
+  StyledTodo,
+  StyledWrap,
+  StyledWrapInput,
+} from "../Style/Style";
+import { Button } from "../components/Button/Button";
+
+type FormElement = React.FormEvent<HTMLFormElement>;
+
+interface ITodo {
+  text: string;
+  date: string;
+  complete: boolean;
+}
 
 const Home: FC = () => {
-  const [data, setData] = useState([]);
-  const selectCart = useSelector(selectorCard);
-  const selectWish = useSelector(selectorLikeCard);
-  let idSelectCart: string[] = [];
-  let idSelectWish: string[] = [];
-  selectCart.forEach((card: any) => {
-    idSelectCart = [...idSelectCart, card.uuid];
-  });
-  selectWish.forEach((card: any) => {
-    idSelectWish = [...idSelectWish, card.uuid];
-  });
+  const [value, setValue] = useState<string>("");
+  const [date, setDate] = useState<string>("");
+  const [todos, setTodos] = useState<ITodo[]>([]);
 
-  const url: string =
-    "https://api.musement.com/api/v3/venues/164/activities?limit=6&offset=0&accept-language=it&x-musement-currency=EUR&x-musement-version=3.4.0";
-  const dispatch = useDispatch();
-  useEffect(() => {
-    axios.get(url).then((response) => setData(response.data));
-  }, []);
+  // debugger;
 
-  const addToCart = (obj: any) =>
-    dispatch({ type: ACTION_ADD_CARD, payload: obj });
+  const handleSubmit = (e: FormElement): void => {
+    e.preventDefault();
+    addTodo(value);
+    setValue("");
+  };
 
-  const removeToCart = (obj: any) =>
-    dispatch({ type: ACTION_REMOVE_CARD, payload: obj });
+  const addTodo = (text: string): void => {
+    const newTodos: ITodo[] = [...todos, { text, date, complete: false }];
+    setTodos(newTodos);
+  };
 
-  const addToWish = (obj: any) =>
-    dispatch({ type: ACTION_ADD_WISH, payload: obj });
+  const completeTodo = (index: number): void => {
+    const newTodos: ITodo[] = [...todos];
+    // switch complete state
+    newTodos[index].complete = !newTodos[index].complete;
+    setTodos(newTodos);
+  };
 
-  const removeToWish = (obj: any) =>
-    dispatch({ type: ACTION_REMOVE_WISH, payload: obj });
+  const deleteTodo = (index: number): void => {
+    const newTodos: ITodo[] = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
 
-  const StyledWrap = Styled.div`
-    width:80%;
-    margin:auto;
-    display:flex;
-    flex-wrap: wrap;
-    margin-top:80px;
-  `;
+  const deleteTodoComplete = () => {
+    let newTodos: ITodo[] = [...todos];
+    newTodos = newTodos.filter((todo) => todo.complete !== true);
+    console.log(newTodos);
+    setTodos(newTodos);
+  };
 
-  const StyledButton = Styled.div`
-        width:40%;
-        height:30px;
-        margin:auto;
-
-  `;
-
-  const StyledHeader = Styled.div`
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    background-color: lightgrey;
-    z-index:1;
-  `;
+  const formattedDate = (date: any) => {
+    if (moment().diff(date, "days") > 0) {
+      return "red";
+    }
+    if (
+      moment().diff(date, "days") === 0 ||
+      moment().diff(date, "days") === -1 ||
+      moment().diff(date, "days") === -2
+    ) {
+      return "lightgreen";
+    }
+    return "";
+  };
 
   return (
-    <>
-      <StyledHeader>
-        <Header />
-      </StyledHeader>
-
-      <StyledWrap>
-        {data &&
-          data.map((card: any, index: number) => (
-            <div key={card.uuid}>
-              <Card
-                handleStart={
-                  idSelectWish.includes(card.uuid)
-                    ? () => removeToWish(card)
-                    : () => addToWish(card)
-                }
-                colorIcon={idSelectWish.includes(card.uuid)}
-                src={card.cover_image_url}
-                title={card.title}
-                description={card.description}
-                price={card.original_retail_price.formatted_value}
-              />
-              <StyledButton key={index}>
-                {idSelectCart.includes(card.uuid) && (
-                  <Button
-                    handleClick={() => removeToCart(card)}
-                    variant="primary"
-                  >
-                    {" "}
-                    REMOVE TO CART{" "}
-                  </Button>
-                )}
-                <Button handleClick={() => addToCart(card)} variant="secondary">
-                  {" "}
-                  ADD TO CART{" "}
-                </Button>
-              </StyledButton>
-            </div>
-          ))}
-      </StyledWrap>
-    </>
+    <StyledWrap>
+      <h1>Todo List</h1>
+      <StyledDeleteComplete>
+        {" "}
+        {todos.length > 0 && (
+          <Button variant="secondary" handleClick={deleteTodoComplete}>
+            Delete Todo Complete
+          </Button>
+        )}
+      </StyledDeleteComplete>
+      <div>
+        <StyledForm onSubmit={handleSubmit}>
+          <StyledWrapInput>
+            <label>Description</label>
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              required
+            />
+          </StyledWrapInput>
+          <StyledWrapInput>
+            {}
+            <label>Date</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+          </StyledWrapInput>
+          <StyledButtonAdd>
+            <Button variant="primary" type="submit">
+              Add Todo
+            </Button>
+          </StyledButtonAdd>
+        </StyledForm>
+      </div>
+      <section>
+        {todos.map((todo: ITodo, index: number) => {
+          return (
+            <StyledTodo key={index}>
+              <div
+                style={{
+                  textDecoration: todo.complete ? "line-through" : "",
+                  backgroundColor: formattedDate(todo.date),
+                }}
+              >
+                <div>{todo.text}</div>
+                <div>to be completed by: {todo.date}</div>
+                <div>
+                  {formattedDate(todo.date) === "red" ? "Task expired" : ""}
+                  {formattedDate(todo.date) === "lightgreen"
+                    ? "short-term tasks"
+                    : ""}
+                </div>
+              </div>
+              <Button
+                variant="primary"
+                handleClick={(): void => completeTodo(index)}
+              >
+                {todo.complete ? "Incomplete" : "Complete"}
+              </Button>
+              <button type="button" onClick={(): void => deleteTodo(index)}>
+                <i className="fas fa-trash"></i>
+              </button>
+            </StyledTodo>
+          );
+        })}
+      </section>
+    </StyledWrap>
   );
 };
 
