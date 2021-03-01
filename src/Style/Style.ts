@@ -32,7 +32,7 @@ export const StyledButtonAdd = Styled.div`
 `;
 
 export const StyledTodo = Styled.div<any>`
- background: ${(props) => (props.expired ? "red" : "")};
+    text-decoration: ${(props) => (props.complete ? "line-through" : "")};
     width:100%;
     margin:auto;
     border-radius:6px;
@@ -48,10 +48,11 @@ export const StyledButtonTodo = Styled.div`
         margin:auto;
 `;
 
-export const StyledAllarm = Styled.div`
+export const StyledAllarm = Styled.div<any>`
     width:20%;
     margin:auto;
     border-radius:6px;
+    background: ${(props) => props.date};
 `;
 
 export const StyledWrapPass = Styled.div`

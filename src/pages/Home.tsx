@@ -126,17 +126,12 @@ const Home: FC = () => {
       <section>
         {todos.map((todo: ITodo, index: number) => {
           return (
-            <StyledTodo key={index}>
+            <StyledTodo key={index} complete={todo.complete}>
               <StyledText>
                 <div>{todo.text}</div>
                 <div>to be completed by: {todo.date}</div>
               </StyledText>
-              <StyledAllarm
-                style={{
-                  textDecoration: todo.complete ? "line-through" : "",
-                  backgroundColor: formattedDate(todo.date),
-                }}
-              >
+              <StyledAllarm date={formattedDate(todo.date)}>
                 {formattedDate(todo.date) === "red" ? (
                   <div>
                     <i className="fas fa-exclamation"> </i>Task expired
