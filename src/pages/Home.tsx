@@ -12,6 +12,7 @@ import {
   StyledTodo,
   StyledWrap,
   StyledWrapInput,
+  StyleTextAllarm,
 } from "../Style/Style";
 import { Button } from "../components/Button/Button";
 
@@ -134,14 +135,20 @@ const Home: FC = () => {
               <StyledAllarm date={formattedDate(todo.date)}>
                 {formattedDate(todo.date) === "red" ? (
                   <div>
-                    <i className="fas fa-exclamation"> </i>Task expired
+                    <StyleTextAllarm className="fas fa-exclamation">
+                      {" "}
+                    </StyleTextAllarm>
+                    Task expired
                   </div>
                 ) : (
                   ""
                 )}
                 {formattedDate(todo.date) === "lightyellow" ? (
                   <div>
-                    <i className="fas fa-exclamation"> </i>short-term tasks
+                    <StyleTextAllarm className="fas fa-exclamation">
+                      {" "}
+                    </StyleTextAllarm>
+                    short-term tasks
                   </div>
                 ) : (
                   ""

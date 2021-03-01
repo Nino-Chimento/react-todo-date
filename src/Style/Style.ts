@@ -80,3 +80,7 @@ export const StyledComplete = Styled.div`
     width:100px;
     margin-right:5px;
 `;
+
+export const StyleTextAllarm = Styled.i`
+    margin-right:5px;
+`;
