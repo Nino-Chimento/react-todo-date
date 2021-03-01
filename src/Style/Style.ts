@@ -33,22 +33,25 @@ export const StyledButtonAdd = Styled.div`
 
 export const StyledTodo = Styled.div<any>`
  background: ${(props) => (props.expired ? "red" : "")};
-    width:50%;
+    width:100%;
     margin:auto;
     border-radius:6px;
     margin-top:20px;
+    display:flex;
+    align-items:center;
+    height:80px;
 `;
 
 export const StyledButtonTodo = Styled.div`
         width:20%;
-        
+        display:flex;
         margin:auto;
 `;
 
 export const StyledAllarm = Styled.div`
     width:20%;
-        margin:auto;
-        border-radius:6px;
+    margin:auto;
+    border-radius:6px;
 `;
 
 export const StyledWrapPass = Styled.div`
@@ -66,4 +69,13 @@ export const StyledWrapInputLog = Styled.div`
 
 export const StyledLabelLog = Styled.label`
         margin-right:5px;
+`;
+
+export const StyledText = Styled.div`
+    width:50%;
+`;
+
+export const StyledComplete = Styled.div`
+    width:100px;
+    margin-right:5px;
 `;

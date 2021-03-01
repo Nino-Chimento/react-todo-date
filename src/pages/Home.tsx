@@ -5,8 +5,10 @@ import {
   StyledAllarm,
   StyledButtonAdd,
   StyledButtonTodo,
+  StyledComplete,
   StyledDeleteComplete,
   StyledForm,
+  StyledText,
   StyledTodo,
   StyledWrap,
   StyledWrapInput,
@@ -51,7 +53,6 @@ const Home: FC = () => {
 
   const completeTodo = (index: number): void => {
     const newTodos: ITodo[] = [...todos];
-    // switch complete state
     newTodos[index].complete = !newTodos[index].complete;
     setTodos(newTodos);
   };
@@ -126,28 +127,40 @@ const Home: FC = () => {
         {todos.map((todo: ITodo, index: number) => {
           return (
             <StyledTodo key={index}>
-              <div>
+              <StyledText>
                 <div>{todo.text}</div>
                 <div>to be completed by: {todo.date}</div>
-                <StyledAllarm
-                  style={{
-                    textDecoration: todo.complete ? "line-through" : "",
-                    backgroundColor: formattedDate(todo.date),
-                  }}
-                >
-                  {formattedDate(todo.date) === "red" ? "Task expired" : ""}
-                  {formattedDate(todo.date) === "lightyellow"
-                    ? "short-term tasks"
-                    : ""}
-                </StyledAllarm>
-              </div>
+              </StyledText>
+              <StyledAllarm
+                style={{
+                  textDecoration: todo.complete ? "line-through" : "",
+                  backgroundColor: formattedDate(todo.date),
+                }}
+              >
+                {formattedDate(todo.date) === "red" ? (
+                  <div>
+                    <i className="fas fa-exclamation"> </i>Task expired
+                  </div>
+                ) : (
+                  ""
+                )}
+                {formattedDate(todo.date) === "lightyellow" ? (
+                  <div>
+                    <i className="fas fa-exclamation"> </i>short-term tasks
+                  </div>
+                ) : (
+                  ""
+                )}
+              </StyledAllarm>
               <StyledButtonTodo>
-                <Button
-                  variant="primary"
-                  handleClick={(): void => completeTodo(index)}
-                >
-                  {todo.complete ? "Incomplete" : "Complete"}
-                </Button>
+                <StyledComplete>
+                  <Button
+                    variant="primary"
+                    handleClick={(): void => completeTodo(index)}
+                  >
+                    {todo.complete ? "Incomplete" : "Complete"}
+                  </Button>
+                </StyledComplete>
                 <button type="button" onClick={(): void => deleteTodo(index)}>
                   <i className="fas fa-trash"></i>
                 </button>
