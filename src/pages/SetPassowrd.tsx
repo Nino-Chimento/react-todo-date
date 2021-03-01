@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { Button } from "../components/Button/Button";
+import { encrypt } from "../utils/crypto";
 import {
   StyledLabelLog,
   StyledWrapButtonLog,
@@ -12,9 +13,10 @@ interface SetPasswordProps {
 }
 
 export const SetPassword: FC<SetPasswordProps> = (props) => {
-  const [pass, setPass] = useState();
+  let [pass, setPass] = useState("");
 
   const handleSetPass = () => {
+    pass = encrypt(pass);
     localStorage.setItem("firstPassword", JSON.stringify(pass));
     props.setFirstPassword(pass);
   };

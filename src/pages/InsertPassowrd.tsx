@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { Button } from "../components/Button/Button";
+import { decrypt } from "../utils/crypto";
 import {
   StyledLabelLog,
   StyledWrapButtonLog,
@@ -16,7 +17,9 @@ export const InsertPassword: FC<InsertPasswordProps> = (props) => {
   const [error, setError] = useState(false);
   const handleSetPass = () => {
     //@ts-ignore
-    const passAuth = JSON.parse(localStorage.getItem("firstPassword"));
+    let passAuth = JSON.parse(localStorage.getItem("firstPassword"));
+
+    passAuth = decrypt(passAuth);
     if (passAuth === pass) {
       props.setAuth(true);
     } else {
