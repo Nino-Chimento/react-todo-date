@@ -26,8 +26,6 @@ const Home: FC = () => {
   const [date, setDate] = useState<string>("");
   const [todos, setTodos] = useState<ITodo[]>([]);
 
-  // debugger;
-
   useEffect(() => {
     //@ts-ignore
     const todos: any = JSON.parse(localStorage.getItem("items"));

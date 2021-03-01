@@ -21,6 +21,7 @@ export const InsertPassword: FC<InsertPasswordProps> = (props) => {
 
     passAuth = decrypt(passAuth);
     if (passAuth === pass) {
+      localStorage.setItem("auth", JSON.stringify(true));
       props.setAuth(true);
     } else {
       setError(true);

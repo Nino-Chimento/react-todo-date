@@ -9,7 +9,8 @@ function App() {
     //@ts-ignore
     JSON.parse(localStorage.getItem("firstPassword"))
   );
-  const [auth, setAuth] = useState(false);
+  //@ts-ignore
+  const [auth, setAuth] = useState(JSON.parse(localStorage.getItem("auth")));
 
   if (!firstPassword) {
     return <SetPassword setFirstPassword={setFirstPassword} />;
