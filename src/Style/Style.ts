@@ -50,3 +50,20 @@ export const StyledAllarm = Styled.div`
         margin:auto;
         border-radius:6px;
 `;
+
+export const StyledWrapPass = Styled.div`
+    text-align:center;
+`;
+
+export const StyledWrapButtonLog = Styled.div`
+    width:20%;
+    margin:auto;
+`;
+
+export const StyledWrapInputLog = Styled.div`
+    margin-bottom:20px;
+`;
+
+export const StyledLabelLog = Styled.label`
+        margin-right:5px;
+`;

@@ -1,5 +1,11 @@
 import React, { FC, useState } from "react";
 import { Button } from "../components/Button/Button";
+import {
+  StyledLabelLog,
+  StyledWrapButtonLog,
+  StyledWrapInputLog,
+  StyledWrapPass,
+} from "../Style/Style";
 
 interface InsertPasswordProps {
   setAuth: any;
@@ -20,17 +26,24 @@ export const InsertPassword: FC<InsertPasswordProps> = (props) => {
 
   return (
     <>
-      <h1>Insert Your Password</h1>
-      <div>
-        <input
-          type="text"
-          onChange={(e: any): void => setPass(e.target.value)}
-        />
-        <Button handleClick={handleSetPass} variant="primary">
-          Log In
-        </Button>
-        {error && <h4>Password errata</h4>}
-      </div>
+      <StyledWrapPass>
+        <h1>Insert Your Password</h1>
+        <div>
+          <StyledWrapInputLog>
+            <StyledLabelLog>Insert Your Password</StyledLabelLog>
+            <input
+              type="text"
+              onChange={(e: any): void => setPass(e.target.value)}
+            />
+          </StyledWrapInputLog>
+          <StyledWrapButtonLog>
+            <Button handleClick={handleSetPass} variant="primary">
+              Log In
+            </Button>
+          </StyledWrapButtonLog>
+          {error && <h4>Password errata</h4>}
+        </div>
+      </StyledWrapPass>
     </>
   );
 };
