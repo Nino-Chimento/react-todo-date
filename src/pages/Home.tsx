@@ -2,7 +2,9 @@ import React, { FC, useEffect, useState } from "react";
 import "@fortawesome/fontawesome-free/js/all.js";
 import moment from "moment";
 import {
+  StyledAllarm,
   StyledButtonAdd,
+  StyledButtonTodo,
   StyledDeleteComplete,
   StyledForm,
   StyledTodo,
@@ -78,7 +80,7 @@ const Home: FC = () => {
       moment().diff(date, "days") === -1 ||
       moment().diff(date, "days") === -2
     ) {
-      return "lightgreen";
+      return "lightyellow";
     }
     return "";
   };
@@ -117,7 +119,7 @@ const Home: FC = () => {
           </StyledWrapInput>
           <StyledButtonAdd>
             <Button variant="primary" type="submit">
-              Add Todo
+              <i className="fas fa-plus"></i>
             </Button>
           </StyledButtonAdd>
         </StyledForm>
@@ -126,30 +128,32 @@ const Home: FC = () => {
         {todos.map((todo: ITodo, index: number) => {
           return (
             <StyledTodo key={index}>
-              <div
-                style={{
-                  textDecoration: todo.complete ? "line-through" : "",
-                  backgroundColor: formattedDate(todo.date),
-                }}
-              >
+              <div>
                 <div>{todo.text}</div>
                 <div>to be completed by: {todo.date}</div>
-                <div>
+                <StyledAllarm
+                  style={{
+                    textDecoration: todo.complete ? "line-through" : "",
+                    backgroundColor: formattedDate(todo.date),
+                  }}
+                >
                   {formattedDate(todo.date) === "red" ? "Task expired" : ""}
-                  {formattedDate(todo.date) === "lightgreen"
+                  {formattedDate(todo.date) === "lightyellow"
                     ? "short-term tasks"
                     : ""}
-                </div>
+                </StyledAllarm>
               </div>
-              <Button
-                variant="primary"
-                handleClick={(): void => completeTodo(index)}
-              >
-                {todo.complete ? "Incomplete" : "Complete"}
-              </Button>
-              <button type="button" onClick={(): void => deleteTodo(index)}>
-                <i className="fas fa-trash"></i>
-              </button>
+              <StyledButtonTodo>
+                <Button
+                  variant="primary"
+                  handleClick={(): void => completeTodo(index)}
+                >
+                  {todo.complete ? "Incomplete" : "Complete"}
+                </Button>
+                <button type="button" onClick={(): void => deleteTodo(index)}>
+                  <i className="fas fa-trash"></i>
+                </button>
+              </StyledButtonTodo>
             </StyledTodo>
           );
         })}

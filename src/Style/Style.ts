@@ -26,13 +26,27 @@ export const StyledWrapInput = Styled.div`
 `;
 
 export const StyledButtonAdd = Styled.div`
-    width:30%;
+    width:10%;
+    height:30px;
     padding-top:20px;
 `;
 
-export const StyledTodo = Styled.div`
+export const StyledTodo = Styled.div<any>`
+ background: ${(props) => (props.expired ? "red" : "")};
     width:50%;
     margin:auto;
     border-radius:6px;
     margin-top:20px;
+`;
+
+export const StyledButtonTodo = Styled.div`
+        width:20%;
+        
+        margin:auto;
+`;
+
+export const StyledAllarm = Styled.div`
+    width:20%;
+        margin:auto;
+        border-radius:6px;
 `;
