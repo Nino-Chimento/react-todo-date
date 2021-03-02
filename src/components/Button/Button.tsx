@@ -24,6 +24,9 @@ const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
   border-radius: 10px;
   border: 1px solid lightgrey;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const Button: FC<ButtonProps> = (props: ButtonProps) => {

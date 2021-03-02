@@ -1,9 +1,11 @@
 import Styled from "styled-components";
 
 export const StyledWrap = Styled.div`
+    background: linear-gradient(18deg, rgb(17, 200, 220), rgb(90, 67, 121));
     width:90%;
     margin:auto;
     text-align:center;
+    padding-bottom:20px;
 `;
 
 export const StyledDeleteComplete = Styled.div`
@@ -33,13 +35,16 @@ export const StyledButtonAdd = Styled.div`
 
 export const StyledTodo = Styled.div<any>`
     text-decoration: ${(props) => (props.complete ? "line-through" : "")};
-    width:100%;
+    opacity: ${(props) => (props.complete ? "0.6" : "")};
+    width:80%;
     margin:auto;
     border-radius:6px;
     margin-top:20px;
     display:flex;
     align-items:center;
     height:80px;
+    background: #f4f4f4;
+    border-radius: 0.5rem;
 `;
 
 export const StyledButtonTodo = Styled.div`
@@ -83,4 +88,23 @@ export const StyledComplete = Styled.div`
 
 export const StyleTextAllarm = Styled.i`
     margin-right:5px;
+`;
+
+export const StyledTitle = Styled.h1`
+  color: #f4f4f4;
+  font-weight: 800;
+  margin: 1rem 0;
+  `;
+
+export const StyledButtonDeleteComplete = Styled.div`
+    width:30%;
+    margin-left:10px;
+`;
+
+export const StyledInput = Styled.input`
+    background: #f4f4f4;
+    border-radius: 0.5rem;
+    &:focus {
+        outline: none;
+    }
 `;

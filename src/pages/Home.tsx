@@ -4,11 +4,14 @@ import moment from "moment";
 import {
   StyledAllarm,
   StyledButtonAdd,
+  StyledButtonDeleteComplete,
   StyledButtonTodo,
   StyledComplete,
   StyledDeleteComplete,
   StyledForm,
+  StyledInput,
   StyledText,
+  StyledTitle,
   StyledTodo,
   StyledWrap,
   StyledWrapInput,
@@ -87,35 +90,37 @@ const Home: FC = () => {
 
   return (
     <StyledWrap>
-      <h1>Todo List</h1>
+      <StyledTitle>Todo List</StyledTitle>
       <StyledDeleteComplete>
         {" "}
         {todos.length > 0 && (
-          <Button variant="secondary" handleClick={deleteTodoComplete}>
-            Delete Todo Complete
-          </Button>
+          <StyledButtonDeleteComplete>
+            <Button variant="primary" handleClick={deleteTodoComplete}>
+              Delete Todo Complete
+            </Button>
+          </StyledButtonDeleteComplete>
         )}
       </StyledDeleteComplete>
       <div>
         <StyledForm onSubmit={handleSubmit}>
           <StyledWrapInput>
             <label>Description</label>
-            <input
+            <StyledInput
               type="text"
               value={value}
               onChange={(e) => setValue(e.target.value)}
               required
-            />
+            ></StyledInput>
           </StyledWrapInput>
           <StyledWrapInput>
             {}
             <label>Date</label>
-            <input
+            <StyledInput
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
-            />
+            ></StyledInput>
           </StyledWrapInput>
           <StyledButtonAdd>
             <Button variant="primary" type="submit">
