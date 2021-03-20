@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Home from "./pages/Home";
+import { Landing } from "./pages/Landing";
 import { SetPassword } from "./pages/SetPassowrd";
 import { InsertPassword } from "./pages/InsertPassowrd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -26,6 +27,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/landing">
+            <Landing />
           </Route>
         </Switch>
       </Router>
