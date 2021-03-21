@@ -3,3 +3,4 @@ All avvio dell'app viene montato il componente per l impostazione della passowrd
 I dati vengono salvati nel local storage,quindi in maniera persistente. Stessa cosa per l'auth che non viene richiesto nuovamente se la sessione rimane attiva.
 
 Ho usato gli styled.componet per la parte grafica e la logica del css.
+# tlc
