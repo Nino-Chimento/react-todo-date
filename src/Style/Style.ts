@@ -30,7 +30,7 @@ export const StyledWrapInput = Styled.div`
 export const StyledButtonAdd = Styled.div`
     width:10%;
     height:30px;
-    padding-top:20px;
+    
 `;
 
 export const StyledTodo = Styled.div<any>`
