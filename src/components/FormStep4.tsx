@@ -92,6 +92,7 @@ export const FormStep4: FC<FormStep4Props> = (props) => {
         </StyledInput>
         <StyledSelect>
           <Select
+            name="pe"
             required={true}
             handleSelect={props.handleChange}
             options={city}

@@ -3,7 +3,10 @@ import Styled from "styled-components";
 import { Select } from "./Select";
 
 export interface FormStep3Props {
-  handleChange?: any;
+  handleChangeTypeWork: any;
+  handleChangeData: any;
+  handleChangeMonths: any;
+  handleChangeSalary: any;
 }
 
 const StyledTitle = Styled.div`
@@ -67,9 +70,6 @@ const ammount = [
 ];
 
 export const FormStep3: FC<FormStep3Props> = (props) => {
-  //   const today = new Date();
-  //   const setDate =today.getFullYear() +"-" +("0" + (today.getMonth() + 1)).slice(-2) +"-" +("0" + today.getDate()).slice(-2);
-
   const optionsContract = [
     {
       label: "Tipo di contratto",
@@ -89,25 +89,28 @@ export const FormStep3: FC<FormStep3Props> = (props) => {
       <StyledTitle>Maggiori Informazioni</StyledTitle>{" "}
       <StyledSelect>
         <Select
+          name="typeWork"
           required={true}
-          handleSelect={props.handleChange}
+          handleSelect={props.handleChangeTypeWork}
           options={optionsContract}
         />
       </StyledSelect>
       <StyledSelect>
-        <StyleDate onChange={props.handleChange} type="date" />
+        <StyleDate name="data" onChange={props.handleChangeData} type="date" />
       </StyledSelect>
       <StyledSelect>
         <Select
+          name="months"
           required
-          handleSelect={props.handleChange}
+          handleSelect={props.handleChangeMonths}
           options={numberMonths}
         />
       </StyledSelect>
       <StyledSelect>
         <Select
+          name="salary"
           required={true}
-          handleSelect={props.handleChange}
+          handleSelect={props.handleChangeSalary}
           options={ammount}
         />
       </StyledSelect>

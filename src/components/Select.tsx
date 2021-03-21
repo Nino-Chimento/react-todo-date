@@ -4,6 +4,7 @@ import Styled from "styled-components";
 interface selectProps {
   required: boolean;
   handleSelect?: any;
+  name: string;
   options: {
     value: string;
     label: string;
@@ -18,9 +19,15 @@ const StyledSelect = Styled.select`
 
 export const Select: FC<selectProps> = (props) => {
   return (
-    <StyledSelect required={props.required} onChange={props.handleSelect}>
-      {props.options.map((option) => (
-        <option value={option.value}>{option.label}</option>
+    <StyledSelect
+      name={props.name}
+      required={props.required}
+      onChange={props.handleSelect}
+    >
+      {props.options.map((option, index) => (
+        <option key={index} value={option.value}>
+          {option.label}
+        </option>
       ))}
     </StyledSelect>
   );

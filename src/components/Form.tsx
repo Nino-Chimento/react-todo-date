@@ -67,8 +67,9 @@ export const FormStep1: FC<FormProps> = (props) => {
         </StyledP>
       </div>
       <StyledWrapButton>
-        {props.total.map((total) => (
+        {props.total.map((total, index) => (
           <StyledButton
+            key={index}
             onClick={() => props.handletotalActive(total)}
             active={total === props.totalActive}
           >

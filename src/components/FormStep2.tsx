@@ -21,8 +21,9 @@ export const FormStep2: FC<FormStep2Props> = (props) => {
     <>
       <StyledTitle>Attivita</StyledTitle>
       <StyledWrapButton>
-        {props.options.map((option) => (
+        {props.options.map((option, index) => (
           <StyledButton
+            key={index}
             onClick={() => props.handleOptionActive(option)}
             active={option === props.optionActive}
           >

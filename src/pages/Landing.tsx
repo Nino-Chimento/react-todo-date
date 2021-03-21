@@ -1,5 +1,7 @@
 import React, { FC, useState } from "react";
 import Styled from "styled-components";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 import { Img } from "../components/Button/Img";
 import { BreadForm } from "../components/BreadForm";
 import { FormStep1 } from "../components/Form";
@@ -77,10 +79,14 @@ const StyledWrapButtons = Styled.div`
 `;
 
 export const Landing: FC = (props) => {
-  const [bredSelect, setBredSelect] = useState(4);
+  const [bredSelect, setBredSelect] = useState(1);
   const [totalSelect, setTotalSelect] = useState("5.000");
   const [optionWork, setOptionWork] = useState<string>("Pensionato inps");
   const [myTotal, setMyTotal] = useState<number>(0);
+  const [data, setData] = useState();
+  const [months, setMonths] = useState();
+  const [typeWork, setTypeWork] = useState();
+  const [salary, setSalary] = useState();
 
   const handleUp = () => {
     if (bredSelect < 4) {
@@ -91,6 +97,28 @@ export const Landing: FC = (props) => {
     if (bredSelect !== 1) {
       setBredSelect(bredSelect - 1);
     }
+  };
+  const sendRequest = () => {
+    const request = {
+      totalSelect,
+      myTotal,
+      optionWork,
+      data,
+      salary,
+      months,
+      typeWork,
+    };
+    console.log(data);
+    axios.post("http://localhost:8888/landing-page/php/", request).then(
+      (response) => {
+        alert("dati inviati correttamente");
+        console.log(response);
+      },
+      (error) => {
+        alert("errore nell invio");
+        console.log(error);
+      }
+    );
   };
 
   const total = ["5.000", "10.000", " 20.000", "30.000", "50.000"];
@@ -147,7 +175,14 @@ export const Landing: FC = (props) => {
               options={optionsWork}
             />
           )}
-          {bredSelect === 3 && <FormStep3 />}
+          {bredSelect === 3 && (
+            <FormStep3
+              handleChangeData={(e: any) => setData(e.target.value)}
+              handleChangeMonths={(e: any) => setMonths(e.target.value)}
+              handleChangeTypeWork={(e: any) => setTypeWork(e.target.value)}
+              handleChangeSalary={(e: any) => setSalary(e.target.value)}
+            />
+          )}
           {bredSelect === 4 && <FormStep4 />}
           {bredSelect === 1 && (
             <StyledButton onClick={handleUp}>
@@ -167,7 +202,9 @@ export const Landing: FC = (props) => {
                 </StyledButtonNoFirst>
               )}
               {bredSelect === 4 && (
-                <StyledButtonConfirm>CONFERMA</StyledButtonConfirm>
+                <StyledButtonConfirm onClick={sendRequest}>
+                  CONFERMA
+                </StyledButtonConfirm>
               )}
             </StyledWrapButtons>
           )}

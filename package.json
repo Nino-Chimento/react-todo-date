@@ -5,7 +5,9 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@types/axios": "^0.14.0",
     "@types/styled-components": "^5.1.7",
+    "axios": "^0.21.1",
     "font-awesome": "^4.7.0",
     "moment": "^2.29.1",
     "react": "^16.13.1",

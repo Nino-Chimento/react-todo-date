@@ -45,8 +45,8 @@ const StyledOption = Styled.div`
 export const BreadForm: FC<BreadFormProps> = (props) => {
   return (
     <StyledWrap>
-      {props.options.map((option) => (
-        <StyledOption onClick={() => props.handleSelect(option.id)}>
+      {props.options.map((option, index) => (
+        <StyledOption key={index} onClick={() => props.handleSelect(option.id)}>
           <StyledNumber active={option.id === props.active}>
             {option.id}
           </StyledNumber>
